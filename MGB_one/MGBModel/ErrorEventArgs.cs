@@ -5,24 +5,33 @@ using System.Text;
 
 namespace MGB_one
 {
+    //part of program causing problem
+    //static string values for displaying messages
+    //probably other languages will be added
     public static class ErrorSources
     {
-        public const string ModelBaseAccountList = "Model - BaseAccount List";
-        //public const string ViewTabAccounts = "Tab Accounts";
+        public static string ModelBaseAccountList = "Model - BaseAccount List";
+        public static string ViewTabAccounts = "Tab Accounts";
     }
 
-        public static class ErrorMessages
+    //desription of caused problem
+    //static string values for displaying messages
+    //probably other languages will be added
+    public static class ErrorMessages
     {
-        public const string FileLoadBA = "Error: Unable to load BaseAccount file";
-        public const string FileSaveBA = "Error: Unable to save BaseAccount file";
-        public const string IndexOutOfBounds = "Error: Index out of bounds";
-        public const string InvalidAccount = "This is not valid Account - check all values";
-        public const string InvalidLvlPointsValue = "Should be numeric value 0 - 20";
+        public static string FileLoadBA = "Error: Unable to load BaseAccount file";
+        public static string FileSaveBA = "Error: Unable to save BaseAccount file";
+        public static string IndexOutOfBounds = "Error: Index out of bounds";
+        public static string InvalidAccount = "This is not valid Account - check all values";
+        public static string InvalidLvlPointsValue = "Should be numeric value 0 - 20";
     }
 
+    //Custom EventArgs class for Error event
     public class ErrorEventArgs : EventArgs
     {
+        //content of displayed message
         public string ErrorMessage { get; set; }
+        //part of program causing problem displayed in title
         public string ErrorSource { get; set; }
 
         public ErrorEventArgs(string message, string source)
