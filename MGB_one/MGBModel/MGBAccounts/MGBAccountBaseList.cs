@@ -7,8 +7,10 @@ using System.IO;
 
 namespace MGB_one.Model.MGBAccounts
 {
+    //Custom list type for MGBAccountBase objects
     public class MGBAccountBaseList : List<MGBAccountBase>
     {
+        //Adds only correct elements if not already on the list
         public bool AddValidated(MGBAccountBase element)
         {
             if (element.Validate())
@@ -25,6 +27,7 @@ namespace MGB_one.Model.MGBAccounts
                 return false;
         }
 
+        //Same as above + confers unique ID - lowest available number
         public bool AddValidated(string name, string login, string password, byte position)
         {
             int tempID = 0;
@@ -43,6 +46,7 @@ namespace MGB_one.Model.MGBAccounts
             return this.AddValidated(tempAccount);
         }
 
+        //for learning purpose only - later binary serialization, probably with encryption
         public bool LoadFromXmlFile(string filePath)
         {
             bool result = false;
@@ -62,6 +66,7 @@ namespace MGB_one.Model.MGBAccounts
             return result; 
         }
 
+        //for learning purpose only - later binary serialization, probably with encryption
         public bool SaveToXmlFile(string filePath)
         {
             bool result = false;
@@ -79,6 +84,7 @@ namespace MGB_one.Model.MGBAccounts
             return result;
         }
 
+        //Returns list of strings containig Name, Used and PointsLeft values for View
         public List<string> ToStringListState()
         {
             List<string> result = new List<string>();
@@ -95,6 +101,7 @@ namespace MGB_one.Model.MGBAccounts
             return result;
         }
 
+        //Returns list of strings containig ID, Name, Position, Login and Password values for View
         public List<string> ToStringListBase()
         {
             List<string> result = new List<string>();
