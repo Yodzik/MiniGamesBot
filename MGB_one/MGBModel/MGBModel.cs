@@ -7,6 +7,7 @@ using MGB_one.Model.MGBAccounts;
 
 namespace MGB_one.Model
 {
+    //
     public class MGBModel : IMGBModel
     {
         private MGBAccountBaseList _baseAccountList;
