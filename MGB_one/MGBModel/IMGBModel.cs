@@ -12,9 +12,11 @@ namespace MGB_one.Model
         event EventHandler<ErrorEventArgs> ErrorOcured;
 
         int BaseAccountListCount { get; }
-        
-        List<string> BaseAccountsToStringListState(); //Contains state information about AccountBase objects
-        List<string> BaseAccountsToStringListBase(); //Contains base information about AccountBase objects
+
+        //Contains state information vor view about AccountBase objects:
+        List<string> BaseAccountsToStringListState();
+        //Contains base information for view about AccountBase objects:
+        List<string> BaseAccountsToStringListBase(); 
         void BaseAccountListSaveToFile(string filePath);
         void BaseAccountListLoadFromFile(string filePath);
         MGBAccountBase GetBaseAccountAt(int index);
