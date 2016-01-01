@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 
 namespace MGB_one.Model.MGBAccounts
 {
+    //List of MGBAccountBaseSerializable elements with changed Xml tags
+    //used only for simple serialization of entire list in MGBAccountBaseList class
+
     [XmlRoot("Root")]
     public class MGBAccountBaseListSerializable
     {
