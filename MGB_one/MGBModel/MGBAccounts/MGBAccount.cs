@@ -6,9 +6,11 @@ using MGB_one.Model;
 
 namespace MGB_one.Model.MGBAccounts
 {
+    //Chosen for game account based on MGBAccountBase
     public class MGBAccount 
     {
-        private MGBAccountBase _accountBase;
+        protected MGBAccountBase _accountBase;
+        //array of parameters for each level of minigame
         protected MGBGameParam[] _gamesLeft;
 
         public MGBAccountBase AccountBase { get { return this._accountBase; } }
@@ -19,18 +21,9 @@ namespace MGB_one.Model.MGBAccounts
                 return _gamesLeft;
             }
         }
-        //nie jestem pewien czy potrzebne - mozna skorzystac z gamesleft i pointsleft
-        /*
-        public bool Ended
-        {
-            get
-            {
-                return (this._pointsLeft == 0 || this.GamesSum() == 0);
-            }
-        }
-        */
-
-        public MGBAccount()
+        
+        //probably shouldn't exist empty object
+        private MGBAccount()
         {
             this._accountBase = new MGBAccountBase();
             this._gamesLeft = new MGBGameParam[Settings.MGB_MAX_GAME_LVL];
@@ -43,14 +36,9 @@ namespace MGB_one.Model.MGBAccounts
         public MGBAccount(MGBAccountBase source) : this()
         {
             this._accountBase = source;
-            //this._gamesLeft = new MGBGameParam[Settings.MGB_MAX_GAME_LVL];
-            //for (int i = 0; i < Settings.MGB_MAX_GAME_LVL; i++)
-            //{
-            //    this._gamesLeft[i] = new MGBGameParam();
-            //}
         }        
 
-        //nie wiem czy potrzebne
+        //probably unnecessary
         public bool ValidateGames() 
         {
             if (this.GamesSum() <= Settings.MGB_MAX_GAME_POINTS)
@@ -59,6 +47,8 @@ namespace MGB_one.Model.MGBAccounts
                 return false;
         }
 
+        //probably unnecessary
+        //sum > 20 means try your best in minigame, if fail to play max -> get next available reward
         public byte GamesSum()
         {
             byte sum = 0;
@@ -71,26 +61,33 @@ namespace MGB_one.Model.MGBAccounts
             return sum;
         }
 
+        //false if values out of range
+        //if gametype = None -> values set to default
         public bool SetGame(int gameLvl, MiniGameType gameType, byte gamePoints)
         {
             if ( gameLvl > 0 && gameLvl <= Settings.MGB_MAX_GAME_LVL && 
                 gamePoints >= 0 && gamePoints <= Settings.MGB_MAX_GAME_POINTS)
             {
-                this._gamesLeft[gameLvl].GameType = gameType;
                 if (gameType != MiniGameType.None)
                 {
+                    this._gamesLeft[gameLvl].GameType = gameType;
+                    //unable to set more than 20 points to all games - commented code probably for disposal
+                    /* 
                     if (gamePoints > Settings.MGB_MAX_GAME_POINTS - this.GamesSum())
                         gamePoints = (byte)(Settings.MGB_MAX_GAME_POINTS - this.GamesSum());
+                    */
                     this._gamesLeft[gameLvl].LvlPointsLeft = gamePoints;
                 }
                 else
-                    this._gamesLeft[gameLvl].LvlPointsLeft = 0;                
+                    this._gamesLeft[gameLvl].Reset();              
                 return true;
             }
             else
                 return false;
         }
 
+        //not sure if neccessary
+        //copy for security purposes in view -> no reference = no problem
         public MGBGameParam[] ReturnCopyOfParam()
         {
             MGBGameParam[] gamesLeft = new MGBGameParam[Settings.MGB_MAX_GAME_LVL];
