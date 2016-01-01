@@ -5,23 +5,26 @@ using System.Text;
 
 namespace MGB_one.Model.MGBAccounts
 {
+    //Contains basic information values about game account
     public class MGBAccountBase
     {
-        //base information:
+        //basic informations changeable in editor:
         protected int _id;
         protected string _name;
         protected string _login;
         protected string _password;
         protected byte _position;
-        //state information:
+        //state information about being used in current session:
         protected bool _used;
         protected byte _pointsLeft;
 
+        //basic informations set only by costructor
         public int ID { get { return this._id; } }
         public string Name { get { return this._name; } }
         public string Login { get { return this._login; } }
         public string Password { get { return this._password; } }
         public byte Position { get { return this._position; } }
+        //state information set by methods - no accidental using of "="
         public bool Used { get { return this._used; } }
         public byte PointsLeft { get { return this._pointsLeft; } }
 
@@ -40,7 +43,7 @@ namespace MGB_one.Model.MGBAccounts
             this.ValidatedCopy(source);
         }
 
-        //MGBAccountBaseSerializable doesn't have "used" and "pointsLeft" fields
+        //MGBAccountBaseSerializable doesn't have "used" and "pointsLeft" fields - those set as default
         public MGBAccountBase(MGBAccountBaseSerializable source)
         {
             this.ValidatedCopy(source.ID, source.Name, source.Login, source.Password, source.Position, false, Settings.MGB_MAX_GAME_POINTS);
@@ -105,6 +108,7 @@ namespace MGB_one.Model.MGBAccounts
             }
         }
 
+        //not sure if necessary - copy for data security => no reference = no problem
         public MGBAccountBase ReturnCopy()
         {
             return new MGBAccountBase(this);
@@ -123,6 +127,9 @@ namespace MGB_one.Model.MGBAccounts
             this._used = value;
         }
 
+        //value comparison not reference
+        //ID and Name must be unique for different accounts
+        //same Login and Position = same account
         public bool ValuesEquals(MGBAccountBase baseAccount)
         {
             if (baseAccount.ID == this._id || baseAccount.Name == this._name)
