@@ -6,7 +6,8 @@ using System.Xml.Serialization;
 
 namespace MGB_one.Model.MGBAccounts
 {
-    //doesnt't contain "Used" and "PointsLeft" from MGBAccountBase class
+    //doesnt't contain state related values from MGBAccountBase class ("Used" and "PointsLeft")
+    //used as copy of base part of MGBAccountBase class for serialization only
     public class MGBAccountBaseSerializable
     {
         [XmlAttribute]
