@@ -69,7 +69,6 @@
     <Compile Include="MGBView\FormMain\MainFormView.Designer.cs">
       <DependentUpon>MainFormView.cs</DependentUpon>
     </Compile>
-    <Compile Include="MGBModel\MGBAccounts\MGBAccountList.cs" />
     <Compile Include="MGBModel\MGBAccounts\MGBGameParameters.cs" />
     <Compile Include="MGBModel\MGBAccounts\MGBAccountBase.cs" />
     <Compile Include="MGBModel\MGBAccounts\MGBAccount.cs" />
