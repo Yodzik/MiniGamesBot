@@ -83,19 +83,109 @@ namespace MGB_one.View
                 }
             }
         }
+
         public byte PointsLeft
         {
-            set { this.lblPointsLeft.Text = value.ToString(); }
+            get
+            {
+                byte temp = 0;
+                byte.TryParse(this.txtPointsLeft.Text, out temp);
+                return temp;
+            }
+            set { this.txtPointsLeft.Text = value.ToString(); }
         }
-        public string[] LvlPoints { get; set; }
+        public byte RewardsLvl1
+        {
+            get
+            {
+                byte temp = 0;
+                byte.TryParse(this.txtQuantityLvl1.Text, out temp);
+                return temp;
+            }
+            set { this.txtQuantityLvl1.Text = value.ToString(); }
+        }
+        public byte RewardsLvl2
+        {
+            get
+            {
+                byte temp = 0;
+                byte.TryParse(this.txtQuantityLvl2.Text, out temp);
+                return temp;
+            }
+            set { this.txtQuantityLvl2.Text = value.ToString(); }
+        }
+        public byte RewardsLvl3
+        {
+            get
+            {
+                byte temp = 0;
+                byte.TryParse(this.txtQuantityLvl3.Text, out temp);
+                return temp;
+            }
+            set { this.txtQuantityLvl3.Text = value.ToString(); }
+        }
+        public byte RewardsLvl4
+        {
+            get
+            {
+                byte temp = 0;
+                byte.TryParse(this.txtQuantityLvl4.Text, out temp);
+                return temp;
+            }
+            set { this.txtQuantityLvl4.Text = value.ToString(); }
+        }
+        public byte RewardsLvl5
+        {
+            get
+            {
+                byte temp = 0;
+                byte.TryParse(this.txtQuantityLvl5.Text, out temp);
+                return temp;
+            }
+            set { this.txtQuantityLvl5.Text = value.ToString(); }
+        }
 
+        /* getter doesn't work - dont know why - compiling error possible infinite loop
+        public byte[] LvlPoints
+        {
+            get
+            {
+                byte[] tempArray =new byte[Settings.MGB_MAX_GAME_LVL];
+                //Not sure if have to make every element of array = 0
+                for (int i = 0; i<LvlPoints.Length; i++)
+                {
+                    tempArray[i] = 0;                    
+                }
+                byte.TryParse(this.txtQuantityLvl1.Text, out tempArray[0]);
+                byte.TryParse(this.txtQuantityLvl2.Text, out tempArray[1]);
+                byte.TryParse(this.txtQuantityLvl3.Text, out tempArray[2]);
+                byte.TryParse(this.txtQuantityLvl4.Text, out tempArray[3]);
+                byte.TryParse(this.txtQuantityLvl5.Text, out tempArray[4]);
+                return tempArray;
+            }
+            set
+            {
+                if (value.Length == Settings.MGB_MAX_GAME_LVL)
+                {
+                    this.txtQuantityLvl1.Text = value[0].ToString();
+                    this.txtQuantityLvl2.Text = value[1].ToString();
+                    this.txtQuantityLvl3.Text = value[2].ToString();
+                    this.txtQuantityLvl4.Text = value[3].ToString();
+                    this.txtQuantityLvl5.Text = value[4].ToString();
+                }
+                else
+                    MessageBox.Show("Error: Game maximum reward lvl is different than 5");
+            }
+        }*/
+
+        /* unused in this version of code - early version of ShowAccountEditorView
         public void Show(object owner)
         {
             if (owner.GetType() == typeof(Form))
                 (this as Form).Show(owner as Form);
             else                
                 MessageBox.Show("Error: view types don't match");
-        }
+        }*/
 
         public void ShowAccountEditorView(IMGBAccountEditorView view)
         {
