@@ -37,9 +37,8 @@
             this.cboProcesses = new System.Windows.Forms.ComboBox();
             this.pageAccounts = new System.Windows.Forms.TabPage();
             this.grpGameParameters = new System.Windows.Forms.GroupBox();
-            this.btnAccountSet = new System.Windows.Forms.Button();
-            this.lblPointsLeft = new System.Windows.Forms.Label();
             this.labelPointsLeft = new System.Windows.Forms.Label();
+            this.btnAccountSet = new System.Windows.Forms.Button();
             this.labelLvl5 = new System.Windows.Forms.Label();
             this.labelLvl4 = new System.Windows.Forms.Label();
             this.labelLvl2 = new System.Windows.Forms.Label();
@@ -71,6 +70,7 @@
             this.lblProgramStatusInfo = new System.Windows.Forms.Label();
             this.labelProgramStatus = new System.Windows.Forms.Label();
             this.labelSelectedProcess = new System.Windows.Forms.Label();
+            this.txtPointsLeft = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.pageMain.SuspendLayout();
             this.pageAccounts.SuspendLayout();
@@ -171,7 +171,7 @@
             // 
             // grpGameParameters
             // 
-            this.grpGameParameters.Controls.Add(this.lblPointsLeft);
+            this.grpGameParameters.Controls.Add(this.txtPointsLeft);
             this.grpGameParameters.Controls.Add(this.labelPointsLeft);
             this.grpGameParameters.Controls.Add(this.btnAccountSet);
             this.grpGameParameters.Controls.Add(this.labelLvl5);
@@ -195,6 +195,14 @@
             this.grpGameParameters.TabStop = false;
             this.grpGameParameters.Text = "Game parameters";
             // 
+            // labelPointsLeft
+            // 
+            this.labelPointsLeft.Location = new System.Drawing.Point(156, 58);
+            this.labelPointsLeft.Name = "labelPointsLeft";
+            this.labelPointsLeft.Size = new System.Drawing.Size(56, 13);
+            this.labelPointsLeft.TabIndex = 14;
+            this.labelPointsLeft.Text = "Pts left:";
+            // 
             // btnAccountSet
             // 
             this.btnAccountSet.Location = new System.Drawing.Point(159, 77);
@@ -203,23 +211,6 @@
             this.btnAccountSet.TabIndex = 16;
             this.btnAccountSet.Text = "Set";
             this.btnAccountSet.UseVisualStyleBackColor = true;
-            // 
-            // lblPointsLeft
-            // 
-            this.lblPointsLeft.Location = new System.Drawing.Point(207, 58);
-            this.lblPointsLeft.Name = "lblPointsLeft";
-            this.lblPointsLeft.Size = new System.Drawing.Size(19, 13);
-            this.lblPointsLeft.TabIndex = 15;
-            this.lblPointsLeft.Text = "20";
-            this.lblPointsLeft.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // labelPointsLeft
-            // 
-            this.labelPointsLeft.Location = new System.Drawing.Point(156, 58);
-            this.labelPointsLeft.Name = "labelPointsLeft";
-            this.labelPointsLeft.Size = new System.Drawing.Size(56, 13);
-            this.labelPointsLeft.TabIndex = 14;
-            this.labelPointsLeft.Text = "Points left:";
             // 
             // labelLvl5
             // 
@@ -520,6 +511,15 @@
             this.labelSelectedProcess.TabIndex = 4;
             this.labelSelectedProcess.Text = "Selected process:";
             // 
+            // txtPointsLeft
+            // 
+            this.txtPointsLeft.Location = new System.Drawing.Point(198, 55);
+            this.txtPointsLeft.Name = "txtPointsLeft";
+            this.txtPointsLeft.Size = new System.Drawing.Size(25, 20);
+            this.txtPointsLeft.TabIndex = 17;
+            this.txtPointsLeft.Text = "0";
+            this.txtPointsLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // MainFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -571,7 +571,6 @@
         private System.Windows.Forms.ComboBox cboShortcutKey;
         private System.Windows.Forms.Label labelShortcutKey;
         private System.Windows.Forms.GroupBox grpGameParameters;
-        private System.Windows.Forms.Label lblPointsLeft;
         private System.Windows.Forms.Label labelPointsLeft;
         private System.Windows.Forms.Label labelLvl5;
         private System.Windows.Forms.Label labelLvl4;
@@ -592,6 +591,7 @@
         private System.Windows.Forms.Button btnAccountMoveUp;
         private System.Windows.Forms.Button btnAccountRemove;
         private System.Windows.Forms.Button btnAccountSet;
+        private System.Windows.Forms.TextBox txtPointsLeft;
     }
 }
 

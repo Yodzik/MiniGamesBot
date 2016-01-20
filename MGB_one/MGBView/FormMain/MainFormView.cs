@@ -24,12 +24,22 @@ namespace MGB_one.View
             set { this.lblSelectedProcessInfo.Text = value; }
         }
 
+        public int SelectedPage
+        {
+            get { return this.tabControlMain.SelectedIndex; }
+        }
+
         public MainFormView()
         {
+            InitializeComponent();
             this._baseAccountList = new List<string>();
-            this.LvlPoints = new string[Settings.MGB_MAX_GAME_LVL];
-            InitializeComponent();            
-        }       
+            /*getter doesn't work - dont know why - compiling error possible infinite loop
+            this.LvlPoints = new byte[Settings.MGB_MAX_GAME_LVL];
+            for (int i = 0; i < this.LvlPoints.Length; i++)
+            {
+                this.LvlPoints[i] = 0;
+            }*/
+        }
 
         public void frmMain_Load(object sender, EventArgs e)
         {
@@ -48,16 +58,7 @@ namespace MGB_one.View
 
         private void btnStartStop_Click(object sender, EventArgs e)
         {
-            MGBAccountBaseList temp = new MGBAccountBaseList();
-            /*
-            temp.Add(new MGBAccountBase(1, "name1", "login1", "password1", 1, false, 20));
-            temp.Add(new MGBAccountBase(2, "name2", "login2", "password2", 2, false, 20));
-            temp.Add(new MGBAccountBase(3, "name3", "login3", "password3", 3, false, 20));
-            temp.Add(new MGBAccountBase(4, "name4", "login4", "password4", 1, false, 20));
-            temp.SaveToXmlFile(MGBModel.Settings.BaseAccountsFilePath);
-            */
-            temp.LoadFromXmlFile(Settings.BaseAccountsFilePath);
-            this.lblProgramStatusInfo.Text = temp[2].Name;
+            
         }
 
         private void btnAccountAdd_Click(object sender, EventArgs e)
