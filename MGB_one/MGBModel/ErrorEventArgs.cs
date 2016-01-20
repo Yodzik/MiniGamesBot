@@ -11,6 +11,8 @@ namespace MGB_one
     public static class ErrorSources
     {
         public static string ModelBaseAccountList = "Model - BaseAccount List";
+        public static string ModelChosenAccountList = "Model - BaseAccount List";
+        public static string ModelAccountLists = "Model - BaseAccount List, ChosenAccount List";
         public static string ViewTabAccounts = "Tab Accounts";
     }
 
@@ -24,6 +26,7 @@ namespace MGB_one
         public static string IndexOutOfBounds = "Error: Index out of bounds";
         public static string InvalidAccount = "This is not valid Account - check all values";
         public static string InvalidLvlPointsValue = "Should be numeric value 0 - 20";
+        public static string InvalidTableSize = "Error: Wrong size of table";
     }
 
     //Custom EventArgs class for Error event
