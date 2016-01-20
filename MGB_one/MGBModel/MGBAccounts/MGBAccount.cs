@@ -12,6 +12,7 @@ namespace MGB_one.Model.MGBAccounts
         protected MGBAccountBase _accountBase;
         //array of parameters for each level of minigame
         protected MGBGameParam[] _gamesLeft;
+        protected MiniGameType _gameType;
 
         public MGBAccountBase AccountBase { get { return this._accountBase; } }
         public MGBGameParam[] GamesLeft
@@ -21,6 +22,7 @@ namespace MGB_one.Model.MGBAccounts
                 return _gamesLeft;
             }
         }
+        public MiniGameType GameType { get { return this._gameType; } }
         
         //probably shouldn't exist empty object
         private MGBAccount()
@@ -31,6 +33,7 @@ namespace MGB_one.Model.MGBAccounts
             {
                 this._gamesLeft[i] = new MGBGameParam();
             }
+            this._gameType = MiniGameType.None;
         }
 
         public MGBAccount(MGBAccountBase source) : this()
@@ -71,6 +74,7 @@ namespace MGB_one.Model.MGBAccounts
                 if (gameType != MiniGameType.None)
                 {
                     this._gamesLeft[gameLvl].GameType = gameType;
+                    this._gameType = gameType;
                     //unable to set more than 20 points to all games - commented code probably for disposal
                     /* 
                     if (gamePoints > Settings.MGB_MAX_GAME_POINTS - this.GamesSum())
@@ -79,7 +83,10 @@ namespace MGB_one.Model.MGBAccounts
                     this._gamesLeft[gameLvl].LvlPointsLeft = gamePoints;
                 }
                 else
-                    this._gamesLeft[gameLvl].Reset();              
+                {
+                    this._gamesLeft[gameLvl].Reset();
+                    this._gameType = MiniGameType.None;
+                }            
                 return true;
             }
             else
@@ -97,6 +104,17 @@ namespace MGB_one.Model.MGBAccounts
                 gamesLeft[i].LvlPointsLeft = this._gamesLeft[i].LvlPointsLeft;
             }
             return gamesLeft;
+        }
+
+        public string AccountString()
+        {
+            return this._accountBase.ID.ToString() + ". " + this._accountBase.Name + " P:" + 
+                this._accountBase.PointsLeft.ToString() + " " + this._gameType.ToString() + 
+                " [L5=" + this._gamesLeft[4].LvlPointsLeft.ToString() + 
+                ",L4=" + this._gamesLeft[3].LvlPointsLeft.ToString() +
+                ",L3=" + this._gamesLeft[2].LvlPointsLeft.ToString() +
+                ",L2=" + this._gamesLeft[1].LvlPointsLeft.ToString() +
+                ",L1=" + this._gamesLeft[0].LvlPointsLeft.ToString() + "]";
         }
     }
 }
