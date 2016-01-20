@@ -13,6 +13,7 @@ namespace MGB_one.View
         // Main window 
         string ProgramStatus { get; set; }
         string SelectedProcess { get; set; }
+        int SelectedPage { get; }
 
         //Tab Main
 
@@ -24,8 +25,15 @@ namespace MGB_one.View
         int ChosenAccountSelectedIndex { get; set; }
         int ChosenAccountsCount { set; }
         MiniGameType SelectedGameType { get; set; }
-        byte PointsLeft { set; }
-        string[] LvlPoints { get;  set; } 
+        byte PointsLeft { get; set; }
+        //getter doesn't work - dont know why - compiling error - possible infinite loop in property: byte[] LvlPoints { get; set; }
+        //instead of byte table due to compiling error 
+        byte RewardsLvl1 { get; set; }
+        byte RewardsLvl2 { get; set; }
+        byte RewardsLvl3 { get; set; }
+        byte RewardsLvl4 { get; set; }
+        byte RewardsLvl5 { get; set; }
+        //Main window location on screen
         Point Location { get; set; }
 
         void ShowAccountEditorView(IMGBAccountEditorView view);
