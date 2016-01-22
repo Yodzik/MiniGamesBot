@@ -32,27 +32,16 @@ namespace MGB_one.View
         public MainFormView()
         {
             InitializeComponent();
-            this._baseAccountList = new List<string>();
-            /*getter doesn't work - dont know why - compiling error possible infinite loop
-            this.LvlPoints = new byte[Settings.MGB_MAX_GAME_LVL];
-            for (int i = 0; i < this.LvlPoints.Length; i++)
-            {
-                this.LvlPoints[i] = 0;
-            }*/
+            InitializeTabAccount();
         }
 
         public void frmMain_Load(object sender, EventArgs e)
         {
-            this.InitializeTabAccount();            
-            this.btnAccountAdd.Enabled = true;
             
+
         }
 
-        private void btnAccountEditor_Click(object sender, EventArgs e)
-        {
-            if (this.ShowAccountEditor != null)
-                this.ShowAccountEditor(sender, e);           
-        }      
+           
 
 
 
@@ -61,13 +50,7 @@ namespace MGB_one.View
             
         }
 
-        private void btnAccountAdd_Click(object sender, EventArgs e)
-        {
-            //List<string> lista = new List<string>() { "aaa", "bbb", "ccc" };
-            //this.lstAvailableAccounts.DataSource = lista;
-            //this.lstAvailableAccounts.Refresh();
-            MessageBox.Show(this._baseAccountList.Count.ToString());
-        }
+        
 
         private void InputValidationMGBPoints(object sender)
         {
@@ -86,29 +69,6 @@ namespace MGB_one.View
             }
         }
 
-        private void txtQuantityLvl1_KeyUp(object sender, KeyEventArgs e)
-        {
-            InputValidationMGBPoints(sender);
-        }
-
-        private void txtQuantityLvl3_KeyUp(object sender, KeyEventArgs e)
-        {
-            InputValidationMGBPoints(sender);
-        }
-
-        private void txtQuantityLvl2_KeyUp(object sender, KeyEventArgs e)
-        {
-            InputValidationMGBPoints(sender);
-        }
-
-        private void txtQuantityLvl4_KeyUp(object sender, KeyEventArgs e)
-        {
-            InputValidationMGBPoints(sender);
-        }
-
-        private void txtQuantityLvl5_KeyUp(object sender, KeyEventArgs e)
-        {
-            InputValidationMGBPoints(sender);
-        }
+        
     }
 }
