@@ -6,15 +6,29 @@ using System.Windows.Forms;
 using System.ComponentModel;
 
 
+
 namespace MGB_one.View
 {
     public partial class MainFormView
     {
+        #region Events
         public event EventHandler ShowAccountEditor;
+        public event EventHandler ChosenAccountListIndexChanged;
+        public event EventHandler ChosenAccountAddToList;
+        public event EventHandler ChosenAccountSetSelected;
+        public event EventHandler ChosenAccountRemoveFromList;
+        public event EventHandler ChosenAccountMoveUp;
+        public event EventHandler ChosenAccountMoveDown;
+        #endregion //Events
 
-        private BindingSource _baseAccountBindingList = new BindingSource();
+        #region Fields
+        private BindingSource _baseAccountBindingList; 
         private List<string> _baseAccountList;
+        private BindingSource _chosenAccountBindingList;
+        private List<string> _chosenAccountList;
+        #endregion //Fields
 
+        #region Properties
         public int BaseAccountSelectedIndex
         {
             get { return this.lstAvailableAccounts.SelectedIndex; }
@@ -83,7 +97,6 @@ namespace MGB_one.View
                 }
             }
         }
-
         public byte PointsLeft
         {
             get
@@ -94,98 +107,64 @@ namespace MGB_one.View
             }
             set { this.txtPointsLeft.Text = value.ToString(); }
         }
-        public byte RewardsLvl1
+        public MGBRewardArray RewardArray
         {
             get
             {
-                byte temp = 0;
-                byte.TryParse(this.txtQuantityLvl1.Text, out temp);
-                return temp;
-            }
-            set { this.txtQuantityLvl1.Text = value.ToString(); }
-        }
-        public byte RewardsLvl2
-        {
-            get
-            {
-                byte temp = 0;
-                byte.TryParse(this.txtQuantityLvl2.Text, out temp);
-                return temp;
-            }
-            set { this.txtQuantityLvl2.Text = value.ToString(); }
-        }
-        public byte RewardsLvl3
-        {
-            get
-            {
-                byte temp = 0;
-                byte.TryParse(this.txtQuantityLvl3.Text, out temp);
-                return temp;
-            }
-            set { this.txtQuantityLvl3.Text = value.ToString(); }
-        }
-        public byte RewardsLvl4
-        {
-            get
-            {
-                byte temp = 0;
-                byte.TryParse(this.txtQuantityLvl4.Text, out temp);
-                return temp;
-            }
-            set { this.txtQuantityLvl4.Text = value.ToString(); }
-        }
-        public byte RewardsLvl5
-        {
-            get
-            {
-                byte temp = 0;
-                byte.TryParse(this.txtQuantityLvl5.Text, out temp);
-                return temp;
-            }
-            set { this.txtQuantityLvl5.Text = value.ToString(); }
-        }
-
-        /* getter doesn't work - dont know why - compiling error possible infinite loop
-        public byte[] LvlPoints
-        {
-            get
-            {
-                byte[] tempArray =new byte[Settings.MGB_MAX_GAME_LVL];
-                //Not sure if have to make every element of array = 0
-                for (int i = 0; i<LvlPoints.Length; i++)
-                {
-                    tempArray[i] = 0;                    
-                }
+                MGBRewardArray tempRewardArray =new MGBRewardArray();
+                byte[] tempArray =new byte[Settings.MGB_MAX_GAME_LVL] { 0,0,0,0,0};             
                 byte.TryParse(this.txtQuantityLvl1.Text, out tempArray[0]);
                 byte.TryParse(this.txtQuantityLvl2.Text, out tempArray[1]);
                 byte.TryParse(this.txtQuantityLvl3.Text, out tempArray[2]);
                 byte.TryParse(this.txtQuantityLvl4.Text, out tempArray[3]);
                 byte.TryParse(this.txtQuantityLvl5.Text, out tempArray[4]);
-                return tempArray;
+                tempRewardArray.Rewards = tempArray;
+                return tempRewardArray;
             }
             set
             {
-                if (value.Length == Settings.MGB_MAX_GAME_LVL)
-                {
-                    this.txtQuantityLvl1.Text = value[0].ToString();
-                    this.txtQuantityLvl2.Text = value[1].ToString();
-                    this.txtQuantityLvl3.Text = value[2].ToString();
-                    this.txtQuantityLvl4.Text = value[3].ToString();
-                    this.txtQuantityLvl5.Text = value[4].ToString();
-                }
-                else
-                    MessageBox.Show("Error: Game maximum reward lvl is different than 5");
-            }
-        }*/
 
-        /* unused in this version of code - early version of ShowAccountEditorView
-        public void Show(object owner)
+                this.txtQuantityLvl1.Text = value.Rewards[0].ToString();
+                this.txtQuantityLvl2.Text = value.Rewards[1].ToString();
+                this.txtQuantityLvl3.Text = value.Rewards[2].ToString();
+                this.txtQuantityLvl4.Text = value.Rewards[3].ToString();
+                this.txtQuantityLvl5.Text = value.Rewards[4].ToString();
+            }
+        }
+        #endregion //Properties
+
+        #region Methods
+
+        //Used as a part of constructor for this partial class
+        private void InitializeTabAccount()
         {
-            if (owner.GetType() == typeof(Form))
-                (this as Form).Show(owner as Form);
-            else                
-                MessageBox.Show("Error: view types don't match");
-        }*/
+            this.RewardArray = new MGBRewardArray();
+
+            this._baseAccountList = new List<string>();
+            this._baseAccountBindingList = new BindingSource();
+            this._baseAccountBindingList.DataSource = this._baseAccountList;
+            this.lstAvailableAccounts.DataSource = this._baseAccountBindingList;
+            this._baseAccountBindingList.RaiseListChangedEvents = true;
+            //this.RefreshBaseAccountView();
+
+            this._chosenAccountList = new List<string>();
+            this._chosenAccountBindingList = new BindingSource();
+            this._chosenAccountBindingList.DataSource = this._chosenAccountList;
+            this.lstChosenAccounts.DataSource = this._chosenAccountBindingList;
+            this._chosenAccountBindingList.RaiseListChangedEvents = true;
+            //this.RefreshChosenAccountView();
+
+            ButtonAddEnableManagement();
+            ButtonRemoveEnableManagement();
+            ButtonSetEnableManagement();
+            
+        }        
+
+        private void FormLoad_TabAccount()
+        {
+            //if (this.lstAvailableAccounts.SelectedIndex >= 0)
+                //this.btnAccountAdd.Enabled = true;
+        }
 
         public void ShowAccountEditorView(IMGBAccountEditorView view)
         {
@@ -200,6 +179,12 @@ namespace MGB_one.View
             this.RefreshBaseAccountView();
         }
 
+        public void SetChosenAccountList(List<string> source)
+        {
+            this._chosenAccountList = source;
+            this.RefreshChosenAccountView();
+        }
+
         private void RefreshBaseAccountView()
         {
             //this._baseAccountBindingList.DataSource = null;
@@ -207,14 +192,112 @@ namespace MGB_one.View
             this._baseAccountBindingList.ResetBindings(false);
         }
 
-        private void InitializeTabAccount()
-        {            
-            this._baseAccountBindingList.DataSource = this._baseAccountList;
-            this.lstAvailableAccounts.DataSource = this._baseAccountBindingList;
-            this._baseAccountBindingList.RaiseListChangedEvents = true;
-            this.RefreshBaseAccountView();
+        private void RefreshChosenAccountView()
+        {
+            this._chosenAccountBindingList.DataSource = this._chosenAccountList;
+            this._chosenAccountBindingList.ResetBindings(false);
         }
 
+        private void ButtonAddEnableManagement()
+        {
+            if (this.lstAvailableAccounts.SelectedIndex >= 0)
+                this.btnAccountAdd.Enabled = true;
+            else
+                this.btnAccountAdd.Enabled = false;
+        }
 
+        private void ButtonRemoveEnableManagement()
+        {
+            if (this.lstChosenAccounts.SelectedIndex >= 0)
+                this.btnAccountRemove.Enabled = true;
+            else
+                this.btnAccountRemove.Enabled = false;
+        }
+
+        private void ButtonSetEnableManagement()
+        {
+            if (this.lstChosenAccounts.SelectedIndex >= 0)
+                this.btnAccountSet.Enabled = true;
+            else
+                this.btnAccountSet.Enabled = false;
+        }
+        /* unused in this version of code - early version of ShowAccountEditorView
+        public void Show(object owner)
+        {
+            if (owner.GetType() == typeof(Form))
+                (this as Form).Show(owner as Form);
+            else                
+                MessageBox.Show("Error: view types don't match");
+        }*/
+        #endregion //Methods
+
+        #region Controll_Events
+
+        private void lstAvailableAccounts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ButtonAddEnableManagement();
+        }
+
+        private void lstChosenAccounts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.ChosenAccountListIndexChanged != null)
+                this.ChosenAccountListIndexChanged(sender, e);
+            ButtonRemoveEnableManagement();
+            ButtonSetEnableManagement();
+        }
+
+        private void btnAccountAdd_Click(object sender, EventArgs e)
+        {
+            if (this.ChosenAccountAddToList != null)
+                this.ChosenAccountAddToList(sender, e);
+            lstChosenAccounts_SelectedIndexChanged(sender, e);
+        }
+
+        private void btnAccountRemove_Click(object sender, EventArgs e)
+        {
+            if (this.ChosenAccountRemoveFromList != null)
+                this.ChosenAccountRemoveFromList(sender, e);
+            ButtonAddEnableManagement();
+        }
+
+        private void btnAccountEditor_Click(object sender, EventArgs e)
+        {
+            if (this.ShowAccountEditor != null)
+                this.ShowAccountEditor(sender, e);
+        }
+
+        private void btnAccountSet_Click(object sender, EventArgs e)
+        {
+            if (this.ChosenAccountSetSelected != null)
+                this.ChosenAccountSetSelected(sender, e);
+        }
+
+        //Text boxes input validation
+        private void txtQuantityLvl1_KeyUp(object sender, KeyEventArgs e)
+        {
+            InputValidationMGBPoints(sender);
+        }
+        private void txtQuantityLvl3_KeyUp(object sender, KeyEventArgs e)
+        {
+            InputValidationMGBPoints(sender);
+        }
+        private void txtQuantityLvl2_KeyUp(object sender, KeyEventArgs e)
+        {
+            InputValidationMGBPoints(sender);
+        }
+        private void txtQuantityLvl4_KeyUp(object sender, KeyEventArgs e)
+        {
+            InputValidationMGBPoints(sender);
+        }
+        private void txtQuantityLvl5_KeyUp(object sender, KeyEventArgs e)
+        {
+            InputValidationMGBPoints(sender);
+        }
+        private void txtPointsLeft_KeyUp(object sender, KeyEventArgs e)
+        {
+            InputValidationMGBPoints(sender);
+        }
+
+        #endregion // Controll_Events
     }
 }
