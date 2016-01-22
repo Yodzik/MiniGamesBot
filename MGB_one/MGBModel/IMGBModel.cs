@@ -29,6 +29,6 @@ namespace MGB_one.Model
         void AddChosenAccount(int index);
         void RemoveChosenAccount(int index);
         MGBAccount GetChosenAccountAt(int index);
-        bool SetChosenAccountAt(MiniGameType gameType, byte[] gameLvlPoints, int index);
+        bool SetChosenAccountAt(int index, byte pointsLeft, MiniGameType gameType, MGBRewardArray gameLvlPoints);
     }
 }
