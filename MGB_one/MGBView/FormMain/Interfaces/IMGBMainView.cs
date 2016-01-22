@@ -19,27 +19,26 @@ namespace MGB_one.View
 
         //Tab Accounts
         event EventHandler ShowAccountEditor;
-        //event EventHandler InputValidationMGBPoints;
+        event EventHandler ChosenAccountListIndexChanged;
+        event EventHandler ChosenAccountAddToList;
+        event EventHandler ChosenAccountSetSelected;
+        event EventHandler ChosenAccountRemoveFromList;
+        event EventHandler ChosenAccountMoveUp;
+        event EventHandler ChosenAccountMoveDown;
 
         int BaseAccountSelectedIndex { get; set; }
         int ChosenAccountSelectedIndex { get; set; }
         int ChosenAccountsCount { set; }
         MiniGameType SelectedGameType { get; set; }
         byte PointsLeft { get; set; }
-        //getter doesn't work - dont know why - compiling error - possible infinite loop in property: byte[] LvlPoints { get; set; }
-        //instead of byte table due to compiling error 
-        byte RewardsLvl1 { get; set; }
-        byte RewardsLvl2 { get; set; }
-        byte RewardsLvl3 { get; set; }
-        byte RewardsLvl4 { get; set; }
-        byte RewardsLvl5 { get; set; }
+        MGBRewardArray RewardArray { get; set; }
         //Main window location on screen
         Point Location { get; set; }
 
         void ShowAccountEditorView(IMGBAccountEditorView view);
         void SetBaseAccountList(List<string> source);
+        void SetChosenAccountList(List<string> source);
 
-        //string InputValidationMGBPoints(object sender, KeyEventArgs e);
 
         //Tab Settings
 
