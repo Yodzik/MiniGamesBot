@@ -175,23 +175,14 @@ namespace MGB_one.Model
                 return null;
             }
         }
-        public bool SetChosenAccountAt(MiniGameType gameType, byte[] gameLvlPoints, int index)
+
+        public bool SetChosenAccountAt(int index, byte pointsLeft, MiniGameType gameType, MGBRewardArray gameLvlPoints)
         {
             if (index >= 0 && index < this._chosenAccountList.Count)
             {
-                if (gameLvlPoints.Length == Settings.MGB_MAX_GAME_LVL)
-                {
-                    for (int i = 0; i < gameLvlPoints.Length; i++)
-                    {
-                        this._chosenAccountList[index].SetGame(i, gameType, gameLvlPoints[i]);
-                    }
-                    return true;
-                }
-                else
-                {
-                    OnErrorOcured(this, new ErrorEventArgs(ErrorMessages.InvalidTableSize, ErrorSources.ModelChosenAccountList));
-                    return false;
-                }
+                this._chosenAccountList[index].SetAllGames(gameType, gameLvlPoints);
+                this._chosenAccountList[index].AccountBase.SetPointsLeft(pointsLeft);
+                return true;
             }
             else
             {
