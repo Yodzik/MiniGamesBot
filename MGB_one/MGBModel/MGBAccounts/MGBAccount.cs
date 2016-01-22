@@ -58,6 +58,12 @@ namespace MGB_one.Model.MGBAccounts
                 return false;
         }
 
+        public void SetAllGames(MiniGameType gameType, MGBRewardArray gamesLeft)
+        {
+            this._gamesLeft = gamesLeft;
+            this._gameType = gameType;
+        }
+
        
         public string AccountString()
         {
